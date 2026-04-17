@@ -1,36 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Desert Palette */
-  --sand:         #C8B49A;
-  --sand-light:   #DDD0BB;
-  --sand-dark:    #B09A80;
-  --adobe:        #C4845A;
-  --adobe-light:  #D49A72;
-  --sage:         #7A9B8A;
-  --sage-light:   #9BBDAD;
-  --sky:          #A8C4D4;
-  --cream:        #F5EDD8;
-  --cream-dark:   #EDE0C4;
-  --terracotta:   #B5614A;
-  --terracotta-dk:#96503C;
-  --dusty-rose:   #D4A5A5;
-  --peach:        #F5C9A5;
-  --dark-brown:   #3A2A1A;
-  --mid-brown:    #6B4F2A;
-  --muted-brown:  #9A826A;
-  --warm-white:   #FAF6F0;
+  /* ── Accent palette (desert, works on dark) ── */
+  --adobe:         #C4845A;
+  --adobe-light:   #D49A72;
+  --sage:          #7A9B8A;
+  --sage-light:    #9BBDAD;
+  --terracotta:    #C4704E;
+  --terracotta-dk: #A85A3C;
+  --peach:         #E8B890;
 
-  /* Semantic aliases */
-  --bg:           var(--warm-white);
-  --bg2:          var(--cream);
-  --bg3:          var(--cream-dark);
-  --text:         var(--dark-brown);
-  --muted:        var(--muted-brown);
-  --accent:       var(--terracotta);
-  --accent2:      var(--adobe);
-  --border:       rgba(107, 79, 42, 0.15);
-  --border-accent: rgba(181, 97, 74, 0.3);
+  /* ── OLED surfaces ── */
+  --bg:   #000000;   /* pure OLED black */
+  --bg2:  #0E0C0A;   /* alternate section (barely-warm near-black) */
+  --bg3:  #1A1614;   /* cards, inputs */
+  --bg4:  #262018;   /* card hover */
+
+  /* ── Text ── */
+  --text:        #EAE0D0;   /* primary — warm off-white */
+  --muted:       #9A8070;   /* secondary */
+  --faint:       #5A4838;   /* placeholder / disabled */
+  --warm-white:  #F0E8D8;   /* light — used for text on dark buttons */
+
+  /* ── Component aliases (keep using these in JSX) ── */
+  --dark-brown:  #EAE0D0;   /* was dark body text, now light */
+  --mid-brown:   #C0A888;
+  --muted-brown: #9A8070;
+  --sand:        #C8B49A;
+
+  /* ── Borders ── */
+  --border:        rgba(200, 150, 100, 0.1);
+  --border-accent: rgba(196, 112, 78,  0.32);
+
+  /* ── Semantic ── */
+  --accent:  var(--terracotta);
+  --accent2: var(--adobe);
 }
 
 *, *::before, *::after {
@@ -39,9 +43,7 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
@@ -51,16 +53,16 @@ body {
   line-height: 1.6;
 }
 
-/* Grain overlay */
+/* Film-grain overlay (screen blend so it's visible on dark) */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.045'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.5;
-  mix-blend-mode: multiply;
+  opacity: 0.55;
+  mix-blend-mode: screen;
 }
 
 /* ── TYPOGRAPHY ── */
@@ -93,7 +95,7 @@ section {
 }
 
 .section-body {
-  color: var(--muted);
+  color: var(--muted-brown);
   line-height: 1.8;
   font-size: 1rem;
   max-width: 580px;
@@ -150,8 +152,8 @@ section {
 
 /* ── TAG / PILL ── */
 .tag {
-  background: rgba(181, 97, 74, 0.08);
-  border: 1px solid rgba(181, 97, 74, 0.25);
+  background: rgba(196, 112, 78, 0.1);
+  border: 1px solid rgba(196, 112, 78, 0.28);
   color: var(--terracotta);
   font-family: 'Space Mono', monospace;
   font-size: 0.62rem;
