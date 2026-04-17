@@ -1,5 +1,4 @@
-import DustCanvas from './components/DustCanvas'
-import Tumbleweed from './components/Tumbleweed'
+import WesternBackground from './components/WesternBackground'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -12,11 +11,9 @@ import Footer from './components/Footer'
 export default function App() {
   return (
     <>
-      {/* Background layers */}
-      <DustCanvas />
-      <Tumbleweed />
+      <WesternBackground />
 
-      {/* Page content — sits above dust canvas */}
+      {/* Page content — sits above the western canvas */}
       <div style={{ position: 'relative', zIndex: 1 }}>
         <Nav />
         <Hero />

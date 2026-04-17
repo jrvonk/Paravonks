@@ -5,16 +5,13 @@ const fadeUp = {
   hidden: { opacity: 0, y: 28 },
   show:   { opacity: 1, y: 0, transition: { type: 'spring', ...SPRING } },
 }
-const stagger = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.1 } },
-}
+const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } }
 
 const stats = [
-  { num: '12+', label: 'Years Combined Experience' },
+  { num: '12+',  label: 'Years Combined Experience' },
   { num: '200+', label: 'Projects Delivered' },
-  { num: '50+', label: 'Brands Consulted' },
-  { num: '0', label: 'Excuses Made' },
+  { num: '50+',  label: 'Brands Consulted' },
+  { num: '0',    label: 'Excuses Made' },
 ]
 
 const team = [
@@ -40,8 +37,8 @@ function TeamCard({ person }) {
       variants={fadeUp}
       whileHover={{ y: -5, transition: { type: 'spring', ...SPRING } }}
       style={{
-        background: 'var(--warm-white)',
-        border: '1px solid rgba(181,97,74,0.14)',
+        background: 'var(--bg3)',
+        border: '1px solid rgba(196,112,78,0.14)',
         padding: '2.2rem',
         position: 'relative',
         overflow: 'hidden',
@@ -57,13 +54,13 @@ function TeamCard({ person }) {
         background: 'linear-gradient(135deg, var(--adobe) 0%, var(--terracotta-dk) 100%)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         fontFamily: "'Space Mono', monospace", fontSize: '1.2rem', fontWeight: 700,
-        color: 'var(--warm-white)', marginBottom: '1.4rem',
-        border: '2px solid rgba(181,97,74,0.25)',
+        color: '#000', marginBottom: '1.4rem',
+        border: '2px solid rgba(196,112,78,0.3)',
       }}>
         {person.initials}
       </div>
 
-      <div style={{ fontSize: '1.4rem', fontWeight: 700, fontFamily: "'Playfair Display', serif", marginBottom: '0.28rem' }}>
+      <div style={{ fontSize: '1.4rem', fontWeight: 700, fontFamily: "'Playfair Display', serif", marginBottom: '0.28rem', color: 'var(--dark-brown)' }}>
         {person.name}
       </div>
       <div style={{
@@ -89,7 +86,6 @@ export default function About() {
       <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'start' }}
         className="about-grid">
 
-        {/* Left col */}
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -109,10 +105,7 @@ export default function About() {
             because that's how we were raised to work.
           </motion.p>
 
-          <motion.div
-            variants={stagger}
-            style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.8rem', marginTop: '2.8rem' }}
-          >
+          <motion.div variants={stagger} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.8rem', marginTop: '2.8rem' }}>
             {stats.map(s => (
               <motion.div key={s.label} variants={fadeUp} style={{ borderLeft: '2px solid var(--terracotta)', paddingLeft: '1.1rem' }}>
                 <div style={{ fontFamily: "'Space Mono', monospace", fontSize: '2rem', fontWeight: 700, color: 'var(--terracotta)', lineHeight: 1 }}>
@@ -126,7 +119,6 @@ export default function About() {
           </motion.div>
         </motion.div>
 
-        {/* Right col — team cards */}
         <motion.div
           style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
           initial="hidden"

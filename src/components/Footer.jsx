@@ -1,8 +1,8 @@
 export default function Footer() {
   return (
     <footer style={{
-      background: 'var(--warm-white)',
-      borderTop: '1px solid rgba(181,97,74,0.14)',
+      background: 'var(--bg)',
+      borderTop: '1px solid rgba(196,112,78,0.14)',
       padding: '2.2rem 3rem',
       display: 'flex',
       justifyContent: 'space-between',
@@ -21,7 +21,7 @@ export default function Footer() {
       <div style={{
         fontSize: '0.75rem',
         color: 'var(--muted-brown)',
-        opacity: 0.6,
+        opacity: 0.55,
         fontFamily: "'Space Mono', monospace",
         letterSpacing: '0.06em',
       }}>

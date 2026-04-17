@@ -8,9 +8,9 @@ export default function Nav() {
       justifyContent: 'space-between',
       alignItems: 'center',
       padding: '1.1rem 3rem',
-      background: 'rgba(245, 237, 216, 0.88)',
-      backdropFilter: 'blur(14px)',
-      borderBottom: '1px solid rgba(181, 97, 74, 0.18)',
+      background: 'rgba(0, 0, 0, 0.82)',
+      backdropFilter: 'blur(18px)',
+      borderBottom: '1px solid rgba(196, 112, 78, 0.18)',
     }}>
       <div style={{
         fontFamily: "'Space Mono', monospace",
@@ -60,7 +60,7 @@ export default function Nav() {
           textDecoration: 'none',
           transition: 'all 0.2s',
         }}
-        onMouseEnter={e => { e.target.style.background = 'var(--terracotta)'; e.target.style.color = 'var(--warm-white)' }}
+        onMouseEnter={e => { e.target.style.background = 'var(--terracotta)'; e.target.style.color = '#000' }}
         onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.color = 'var(--terracotta)' }}
       >
         Get Started

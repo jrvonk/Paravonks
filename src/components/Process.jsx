@@ -1,14 +1,8 @@
 import { motion } from 'framer-motion'
 
 const SPRING = { stiffness: 100, damping: 20 }
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  show:   { opacity: 1, y: 0, transition: { type: 'spring', ...SPRING } },
-}
-const stagger = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.13 } },
-}
+const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { type: 'spring', ...SPRING } } }
+const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.13 } } }
 
 const steps = [
   { num: 'Step 01', title: 'Discovery',    desc: "We get deep on your goals, your audience, your constraints, and your gaps. We ask the hard questions upfront so nothing surfaces late." },
@@ -19,13 +13,10 @@ const steps = [
 
 export default function Process() {
   return (
-    <section id="process" style={{ background: 'var(--bg2)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
+    <section id="process" style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
       <motion.div
         style={{ maxWidth: 1200, margin: '0 auto' }}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={stagger}
+        initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={stagger}
       >
         <motion.div variants={fadeUp} className="section-label">How We Work</motion.div>
         <motion.h2 variants={fadeUp} className="section-title">The Vonk Process</motion.h2>
@@ -36,12 +27,7 @@ export default function Process() {
 
         <motion.div
           variants={stagger}
-          style={{
-            marginTop: '4rem',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            position: 'relative',
-          }}
+          style={{ marginTop: '4rem', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', position: 'relative' }}
           className="process-steps"
         >
           {/* Animated connecting line */}
@@ -51,17 +37,14 @@ export default function Process() {
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease: 'easeOut', delay: 0.3 }}
             style={{
-              position: 'absolute',
-              top: '0.85rem',
-              left: '1.5rem',
-              right: '1.5rem',
+              position: 'absolute', top: '0.85rem', left: '1.5rem', right: '1.5rem',
               height: 1,
-              background: 'linear-gradient(90deg, var(--terracotta), rgba(181,97,74,0.12))',
+              background: 'linear-gradient(90deg, var(--terracotta), rgba(196,112,78,0.1))',
               transformOrigin: 'left',
             }}
           />
 
-          {steps.map((step) => (
+          {steps.map(step => (
             <motion.div key={step.num} variants={fadeUp} style={{ padding: '0 1.8rem', position: 'relative' }}>
               <motion.div
                 initial={{ scale: 0 }}
@@ -71,15 +54,14 @@ export default function Process() {
                 style={{
                   width: 14, height: 14, borderRadius: '50%',
                   background: 'var(--terracotta)',
-                  border: '2.5px solid var(--bg2)',
-                  marginBottom: '1.5rem',
-                  position: 'relative', zIndex: 1,
+                  border: '2.5px solid var(--bg)',
+                  marginBottom: '1.5rem', position: 'relative', zIndex: 1,
                 }}
               />
               <div style={{ fontFamily: "'Space Mono', monospace", fontSize: '0.62rem', color: 'var(--terracotta)', letterSpacing: '0.14em', marginBottom: '0.7rem', textTransform: 'uppercase' }}>
                 {step.num}
               </div>
-              <div style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.6rem', fontFamily: "'Playfair Display', serif" }}>
+              <div style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.6rem', fontFamily: "'Playfair Display', serif", color: 'var(--dark-brown)' }}>
                 {step.title}
               </div>
               <p style={{ fontSize: '0.83rem', color: 'var(--muted-brown)', lineHeight: 1.72 }}>
