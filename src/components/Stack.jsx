@@ -1,3 +1,12 @@
+import { motion } from 'framer-motion'
+
+const SPRING = { stiffness: 100, damping: 20 }
+const fadeUp = {
+  hidden: { opacity: 0, y: 22 },
+  show:   { opacity: 1, y: 0, transition: { type: 'spring', ...SPRING } },
+}
+const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.09 } } }
+
 const categories = [
   {
     title: 'Production',
@@ -19,54 +28,50 @@ const categories = [
 
 function Dot() {
   return (
-    <span style={{
-      width: 5,
-      height: 5,
-      borderRadius: '50%',
-      background: 'var(--terracotta)',
-      display: 'inline-block',
-      flexShrink: 0,
-      marginTop: 2,
-    }} />
+    <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--terracotta)', display: 'inline-block', flexShrink: 0, marginTop: 2 }} />
   )
 }
 
 export default function Stack() {
   return (
     <section id="tech" style={{ background: 'var(--warm-white)' }}>
-      <div style={{
-        maxWidth: 1200,
-        margin: '0 auto',
-        display: 'grid',
-        gridTemplateColumns: '1fr 2fr',
-        gap: '5rem',
-        alignItems: 'start',
-      }} className="stack-inner">
-        <div>
-          <div className="section-label">Under The Hood</div>
-          <h2 className="section-title">Deep Tech,<br />Real Tools</h2>
-          <div className="gold-divider" />
-          <p className="section-body">
+      <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '5rem', alignItems: 'start' }}
+        className="stack-inner">
+
+        {/* Left label col */}
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={stagger}
+        >
+          <motion.div variants={fadeUp} className="section-label">Under The Hood</motion.div>
+          <motion.h2 variants={fadeUp} className="section-title">Deep Tech,<br />Real Tools</motion.h2>
+          <motion.div variants={fadeUp} className="gold-divider" />
+          <motion.p variants={fadeUp} className="section-body">
             We don't just know the tools — we know why they work, when they break,
             and how to push them past what most people think is possible.
-          </p>
-          <p style={{ marginTop: '1rem', fontStyle: 'italic', fontSize: '0.88rem', color: 'var(--muted-brown)', lineHeight: 1.7, maxWidth: 580 }}>
+          </motion.p>
+          <motion.p variants={fadeUp} style={{ marginTop: '1rem', fontStyle: 'italic', fontSize: '0.86rem', color: 'var(--muted-brown)', lineHeight: 1.7, maxWidth: 580 }}>
             "Cowboy style means you learn to fix the fence with whatever's in the truck." — James Vonk
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', marginTop: '0.5rem' }}
-          className="stack-categories">
+        {/* Right tech grid */}
+        <motion.div
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', marginTop: '0.5rem' }}
+          className="stack-categories"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={stagger}
+        >
           {categories.map(cat => (
-            <div key={cat.title}>
+            <motion.div key={cat.title} variants={fadeUp}>
               <h4 style={{
-                fontFamily: "'Space Mono', monospace",
-                fontSize: '0.65rem',
-                letterSpacing: '0.22em',
-                color: 'var(--terracotta)',
-                textTransform: 'uppercase',
-                marginBottom: '1rem',
-                paddingBottom: '0.5rem',
+                fontFamily: "'Space Mono', monospace", fontSize: '0.63rem', letterSpacing: '0.22em',
+                color: 'var(--terracotta)', textTransform: 'uppercase',
+                marginBottom: '1rem', paddingBottom: '0.5rem',
                 borderBottom: '1px solid rgba(181,97,74,0.2)',
               }}>
                 {cat.title}
@@ -77,9 +82,9 @@ export default function Stack() {
                   {item}
                 </div>
               ))}
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       <style>{`

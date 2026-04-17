@@ -1,3 +1,12 @@
+import { motion } from 'framer-motion'
+
+const SPRING = { stiffness: 100, damping: 20 }
+const fadeUp = {
+  hidden: { opacity: 0, y: 22 },
+  show:   { opacity: 1, y: 0, transition: { type: 'spring', ...SPRING } },
+}
+const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } }
+
 const contactItems = [
   { icon: '📍', label: 'Based In', value: 'Available Worldwide — We Travel For The Work' },
   { icon: '✉️', label: 'Email', value: 'hello@vonkmedia.com' },
@@ -43,7 +52,7 @@ const inputStyle = {
   border: '1px solid rgba(107,79,42,0.18)',
   color: 'var(--dark-brown)',
   padding: '0.82rem 1rem',
-  fontFamily: "'Space Grotesk', sans-serif",
+  fontFamily: "'Outfit', sans-serif",
   fontSize: '0.9rem',
   outline: 'none',
   transition: 'border-color 0.2s',
@@ -72,18 +81,23 @@ export default function Contact() {
         gap: '5rem',
         alignItems: 'start',
       }} className="contact-inner">
-        <div>
-          <div className="section-label">Let's Talk</div>
-          <h2 className="section-title">Ready When<br />You Are.</h2>
-          <div className="gold-divider" />
-          <p className="section-body">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.25 }}
+          variants={stagger}
+        >
+          <motion.div variants={fadeUp} className="section-label">Let's Talk</motion.div>
+          <motion.h2 variants={fadeUp} className="section-title">Ready When<br />You Are.</motion.h2>
+          <motion.div variants={fadeUp} className="gold-divider" />
+          <motion.p variants={fadeUp} className="section-body">
             Whether you've got a fully scoped project or just an idea on a napkin — reach out.
             We'll tell you honestly what we can do and what it'll take.
-          </p>
+          </motion.p>
 
-          <div style={{ marginTop: '2.8rem', display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
+          <motion.div variants={stagger} style={{ marginTop: '2.8rem', display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
             {contactItems.map(item => (
-              <div key={item.label} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+              <motion.div variants={fadeUp} key={item.label} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
                 <div style={{
                   width: '2.1rem',
                   height: '2.1rem',
@@ -103,13 +117,20 @@ export default function Contact() {
                   </div>
                   <div style={{ fontSize: '0.9rem', color: 'var(--muted-brown)' }}>{item.value}</div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <form style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }} onSubmit={e => e.preventDefault()}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.1rem' }}>
+        <motion.form
+          style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}
+          onSubmit={e => e.preventDefault()}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={stagger}
+        >
+          <motion.div variants={fadeUp} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.1rem' }}>
             <FormInput label="First Name">
               <input type="text" placeholder="John" style={inputStyle}
                 onFocus={e => e.target.style.borderColor = 'rgba(181,97,74,0.5)'}
@@ -120,35 +141,43 @@ export default function Contact() {
                 onFocus={e => e.target.style.borderColor = 'rgba(181,97,74,0.5)'}
                 onBlur={e => e.target.style.borderColor = 'rgba(107,79,42,0.18)'} />
             </FormInput>
-          </div>
-          <FormInput label="Email">
+          </motion.div>
+          <motion.div variants={fadeUp}><FormInput label="Email">
             <input type="email" placeholder="you@company.com" style={inputStyle}
               onFocus={e => e.target.style.borderColor = 'rgba(181,97,74,0.5)'}
               onBlur={e => e.target.style.borderColor = 'rgba(107,79,42,0.18)'} />
-          </FormInput>
-          <FormInput label="Organization">
+          </FormInput></motion.div>
+          <motion.div variants={fadeUp}><FormInput label="Organization">
             <input type="text" placeholder="Your company or project" style={inputStyle}
               onFocus={e => e.target.style.borderColor = 'rgba(181,97,74,0.5)'}
               onBlur={e => e.target.style.borderColor = 'rgba(107,79,42,0.18)'} />
-          </FormInput>
-          <FormInput label="Service Interest">
+          </FormInput></motion.div>
+          <motion.div variants={fadeUp}><FormInput label="Service Interest">
             <select style={{ ...inputStyle, appearance: 'none' }}
               onFocus={e => e.target.style.borderColor = 'rgba(181,97,74,0.5)'}
               onBlur={e => e.target.style.borderColor = 'rgba(107,79,42,0.18)'}>
               <option value="">Select a service...</option>
               {serviceOptions.map(o => <option key={o}>{o}</option>)}
             </select>
-          </FormInput>
-          <FormInput label="Tell Us About Your Project">
+          </FormInput></motion.div>
+          <motion.div variants={fadeUp}><FormInput label="Tell Us About Your Project">
             <textarea rows={5} placeholder="What are you building, what's the timeline, what's the challenge?"
               style={{ ...inputStyle, resize: 'vertical' }}
               onFocus={e => e.target.style.borderColor = 'rgba(181,97,74,0.5)'}
               onBlur={e => e.target.style.borderColor = 'rgba(107,79,42,0.18)'} />
-          </FormInput>
-          <button type="submit" className="btn-primary" style={{ width: '100%', textAlign: 'center', border: 'none', fontSize: '0.8rem', cursor: 'pointer' }}>
-            Send It →
-          </button>
-        </form>
+          </FormInput></motion.div>
+          <motion.div variants={fadeUp}>
+            <motion.button
+              type="submit"
+              className="btn-primary"
+              style={{ width: '100%', textAlign: 'center', border: 'none', fontSize: '0.8rem', cursor: 'pointer' }}
+              whileHover={{ scale: 1.02, transition: { type: 'spring', stiffness: 100, damping: 20 } }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Send It →
+            </motion.button>
+          </motion.div>
+        </motion.form>
       </div>
 
       <style>{`
