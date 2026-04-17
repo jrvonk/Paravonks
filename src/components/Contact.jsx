@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import EditableText from './cms/EditableText'
 
 const SPRING = { stiffness: 100, damping: 20 }
 const fadeUp = { hidden: { opacity: 0, y: 22 }, show: { opacity: 1, y: 0, transition: { type: 'spring', ...SPRING } } }
@@ -6,19 +7,19 @@ const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } }
 
 const contactItems = [
   {
-    label: 'Based In',       value: 'Available Worldwide — We Travel For The Work',
+    label: 'Based In', field: 'contact.location', defaultValue: 'Available Worldwide — We Travel For The Work',
     icon: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>,
   },
   {
-    label: 'Email',           value: 'hello@vonkmedia.com',
+    label: 'Email', field: 'contact.email', defaultValue: 'hello@paravonk.com',
     icon: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>,
   },
   {
-    label: 'Phone',           value: 'Available on inquiry',
+    label: 'Phone', field: 'contact.phone', defaultValue: 'Available on inquiry',
     icon: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.02-.95a2 2 0 0 1 2.12-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg>,
   },
   {
-    label: 'Response Time',   value: 'Within 24 hours. Usually faster.',
+    label: 'Response Time', field: 'contact.response', defaultValue: 'Within 24 hours. Usually faster.',
     icon: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>,
   },
 ]
@@ -60,11 +61,15 @@ export default function Contact() {
 
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} variants={stagger}>
           <motion.div variants={fadeUp} className="section-label">Let's Talk</motion.div>
-          <motion.h2 variants={fadeUp} className="section-title">Ready When<br />You Are.</motion.h2>
+          <motion.h2 variants={fadeUp} className="section-title">
+            <EditableText field="contact.heading">Ready When<br />You Are.</EditableText>
+          </motion.h2>
           <motion.div variants={fadeUp} className="gold-divider" />
           <motion.p variants={fadeUp} className="section-body">
-            Whether you've got a fully scoped project or just an idea on a napkin — reach out.
-            We'll tell you honestly what we can do and what it'll take.
+            <EditableText field="contact.body">
+              Whether you've got a fully scoped project or just an idea on a napkin — reach out.
+              We'll tell you honestly what we can do and what it'll take.
+            </EditableText>
           </motion.p>
 
           <motion.div variants={stagger} style={{ marginTop: '2.8rem', display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
@@ -83,7 +88,9 @@ export default function Contact() {
                   <div style={{ fontFamily: "'Space Mono', monospace", fontSize: '0.62rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--terracotta)', marginBottom: '0.2rem' }}>
                     {item.label}
                   </div>
-                  <div style={{ fontSize: '0.9rem', color: 'var(--muted-brown)' }}>{item.value}</div>
+                  <div style={{ fontSize: '0.9rem', color: 'var(--muted-brown)' }}>
+                    <EditableText field={item.field}>{item.defaultValue}</EditableText>
+                  </div>
                 </div>
               </motion.div>
             ))}

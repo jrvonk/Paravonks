@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import EditableText from './cms/EditableText'
 
 const SPRING = { stiffness: 100, damping: 20 }
 const fadeUp = {
@@ -19,14 +20,16 @@ const team = [
     initials: 'DV',
     name: 'Derek Vonk',
     role: 'Creative Director & Production Lead',
-    bio: "Derek drives the visual language. With an eye trained on everything from documentary-style storytelling to high-production brand films, he leads the creative vision and keeps every frame intentional. He's the one who sees the whole board before a single camera is picked up.",
+    bioField: 'about.derek.bio',
+    bioDefault: "Derek drives the visual language. With an eye trained on everything from documentary-style storytelling to high-production brand films, he leads the creative vision and keeps every frame intentional. He's the one who sees the whole board before a single camera is picked up.",
     tags: ['Direction', 'Cinematography', 'Post-Production', 'Brand Strategy', 'Motion Design'],
   },
   {
     initials: 'JV',
     name: 'James Vonk',
     role: 'Tech Lead & Systems Architect',
-    bio: 'James is where the deep tech lives. He architects the digital infrastructure that makes creative work scalable — pipelines, automation, AI integrations, and distribution systems built to last. He speaks both fluent creative and fluent code.',
+    bioField: 'about.james.bio',
+    bioDefault: 'James is where the deep tech lives. He architects the digital infrastructure that makes creative work scalable — pipelines, automation, AI integrations, and distribution systems built to last. He speaks both fluent creative and fluent code.',
     tags: ['Full-Stack Dev', 'AI/ML Integration', 'Pipeline Architecture', 'CMS & DAM', 'Automation'],
   },
 ]
@@ -71,7 +74,7 @@ function TeamCard({ person }) {
         {person.role}
       </div>
       <p style={{ color: 'var(--muted-brown)', fontSize: '0.9rem', lineHeight: 1.75, marginBottom: '1.3rem' }}>
-        {person.bio}
+        <EditableText field={person.bioField}>{person.bioDefault}</EditableText>
       </p>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.42rem' }}>
         {person.tags.map(t => <span key={t} className="tag">{t}</span>)}
@@ -96,13 +99,17 @@ export default function About() {
           <motion.h2 variants={fadeUp} className="section-title">Two Brothers.<br />One Standard.</motion.h2>
           <motion.div variants={fadeUp} className="gold-divider" />
           <motion.p variants={fadeUp} className="section-body">
-            Vonk Media is Derek and James Vonk — a brother duo who built their craft from scratch,
-            mastering every layer of digital media production along the way. From raw footage to
-            final render, from brand strategy to full-stack pipeline, we own the process end to end.
+            <EditableText field="about.body1">
+              Paravonk is Derek and James Vonk — a brother duo who built their craft from scratch,
+              mastering every layer of digital media production along the way. From raw footage to
+              final render, from brand strategy to full-stack pipeline, we own the process end to end.
+            </EditableText>
           </motion.p>
           <motion.p variants={fadeUp} className="section-body" style={{ marginTop: '1rem' }}>
-            We don't outsource. We don't hand off. We stay in the room until the work is right —
-            because that's how we were raised to work.
+            <EditableText field="about.body2">
+              We don't outsource. We don't hand off. We stay in the room until the work is right —
+              because that's how we were raised to work.
+            </EditableText>
           </motion.p>
 
           <motion.div variants={stagger} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.8rem', marginTop: '2.8rem' }}>

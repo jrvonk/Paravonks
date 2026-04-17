@@ -1,5 +1,6 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useRef } from 'react'
+import EditableText from './cms/EditableText'
 
 const SPRING = { stiffness: 100, damping: 20 }
 
@@ -62,10 +63,9 @@ export default function Hero() {
         position: 'relative',
         padding: '8rem 3rem 5rem',
         overflow: 'hidden',
-        background: 'transparent', // western canvas shows through
+        background: 'transparent',
       }}
     >
-      {/* Subtle warm grid over western scene */}
       <div style={{
         position: 'absolute', inset: 0, pointerEvents: 'none',
         backgroundImage: `
@@ -75,7 +75,6 @@ export default function Hero() {
         backgroundSize: '64px 64px',
       }} />
 
-      {/* Radial warmth behind text — subtle, floats */}
       <motion.div
         style={{
           position: 'absolute',
@@ -96,7 +95,6 @@ export default function Hero() {
         animate="show"
         style={{ position: 'relative', textAlign: 'center', maxWidth: 900 }}
       >
-        {/* Eyebrow tag */}
         <motion.div variants={tagAnim} style={{
           display: 'inline-block',
           fontFamily: "'Space Mono', monospace",
@@ -109,10 +107,9 @@ export default function Hero() {
           marginBottom: '2rem',
           background: 'rgba(0,0,0,0.4)',
         }}>
-          Digital Media Production &amp; Consulting
+          <EditableText field="hero.eyebrow">Digital Media Production &amp; Consulting</EditableText>
         </motion.div>
 
-        {/* Kinetic headline */}
         <h1 style={{
           fontSize: 'clamp(3.2rem, 9vw, 7.8rem)',
           fontWeight: 900,
@@ -122,9 +119,9 @@ export default function Hero() {
           color: 'var(--dark-brown)',
         }}>
           {[
-            <span key="a">Built <span style={{ color: 'var(--terracotta)' }}>From</span></span>,
-            <span key="b">The Ground</span>,
-            <span key="c"><span style={{ color: 'var(--adobe)' }}>Up.</span></span>,
+            <span key="a"><EditableText field="hero.headline1">Built <span style={{ color: 'var(--terracotta)' }}>From</span></EditableText></span>,
+            <span key="b"><EditableText field="hero.headline2">The Ground</EditableText></span>,
+            <span key="c"><EditableText field="hero.headline3"><span style={{ color: 'var(--adobe)' }}>Up.</span></EditableText></span>,
           ].map((line, i) => (
             <span key={i} style={{ display: 'block', overflow: 'hidden' }}>
               <motion.span style={{ display: 'block' }} variants={wordReveal}>
@@ -145,8 +142,10 @@ export default function Hero() {
             fontWeight: 300,
           }}
         >
-          Derek and James Vonk bring cowboy-grade grit and deep-stack technical mastery
-          to every project. No fluff. No middlemen. Just results.
+          <EditableText field="hero.sub">
+            Derek and James Vonk bring cowboy-grade grit and deep-stack technical mastery
+            to every project. No fluff. No middlemen. Just results.
+          </EditableText>
         </motion.p>
 
         <motion.div variants={wordReveal} style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -155,7 +154,6 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

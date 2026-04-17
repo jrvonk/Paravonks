@@ -1,3 +1,5 @@
+import EditableText from './cms/EditableText'
+
 export default function Nav() {
   return (
     <nav style={{
@@ -20,7 +22,7 @@ export default function Nav() {
         color: 'var(--terracotta)',
         textTransform: 'uppercase',
       }}>
-        VONK<span style={{ color: 'var(--mid-brown)' }}> MEDIA</span>
+        <EditableText field="nav.logo">PARAVONK</EditableText>
       </div>
 
       <div style={{ display: 'flex', gap: '2.5rem' }} className="nav-links">
