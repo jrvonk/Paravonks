@@ -1,6 +1,9 @@
 import EditableText from './cms/EditableText'
+import { useAuth } from '../contexts/AuthContext'
+import { firebaseReady } from '../firebase'
 
 export default function Footer() {
+  const { signIn } = useAuth()
   return (
     <footer style={{
       background: 'var(--bg)',
@@ -30,7 +33,7 @@ export default function Footer() {
         <EditableText field="footer.copyright">© 2025 Paravonk — Derek &amp; James Vonk. All rights reserved.</EditableText>
       </div>
 
-      <div style={{ display: 'flex', gap: '2rem' }}>
+      <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
         {[['#about', 'About'], ['#services', 'Services'], ['#contact', 'Contact']].map(([href, label]) => (
           <a
             key={label}
@@ -42,6 +45,16 @@ export default function Footer() {
             {label}
           </a>
         ))}
+        {firebaseReady && (
+          <button
+            onClick={signIn}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.62rem', color: 'var(--faint)', fontFamily: "'Space Mono', monospace", letterSpacing: '0.14em', textTransform: 'uppercase', padding: 0, transition: 'color 0.2s' }}
+            onMouseEnter={e => e.currentTarget.style.color = 'var(--muted)'}
+            onMouseLeave={e => e.currentTarget.style.color = 'var(--faint)'}
+          >
+            CMS
+          </button>
+        )}
       </div>
 
       <style>{`

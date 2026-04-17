@@ -3,42 +3,10 @@ import { useContent } from '../../contexts/ContentContext'
 import { firebaseReady } from '../../firebase'
 
 export default function CMSBar() {
-  const { user, signIn, signOut, authError, isAuthorized } = useAuth()
+  const { user, signOut, isAuthorized } = useAuth()
   const { isEditing, setIsEditing } = useContent()
 
-  if (!firebaseReady) return null
-
-  if (!isAuthorized) {
-    return (
-      <div style={{ position: 'fixed', bottom: '1.2rem', right: '1.5rem', zIndex: 8000 }}>
-        {authError && (
-          <div style={{ fontSize: '0.68rem', color: '#ff6b6b', fontFamily: "'Space Mono', monospace", marginBottom: '0.5rem', textAlign: 'right' }}>
-            {authError}
-          </div>
-        )}
-        <button
-          onClick={signIn}
-          style={{
-            background: 'rgba(14,12,10,0.88)',
-            border: '1px solid rgba(196,112,78,0.28)',
-            color: 'var(--muted)',
-            padding: '0.38rem 0.85rem',
-            fontFamily: "'Space Mono', monospace",
-            fontSize: '0.6rem',
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            cursor: 'pointer',
-            backdropFilter: 'blur(8px)',
-            transition: 'all 0.2s',
-          }}
-          onMouseEnter={e => e.currentTarget.style.color = 'var(--terracotta)'}
-          onMouseLeave={e => e.currentTarget.style.color = 'var(--muted)'}
-        >
-          CMS
-        </button>
-      </div>
-    )
-  }
+  if (!firebaseReady || !isAuthorized) return null
 
   return (
     <div style={{
