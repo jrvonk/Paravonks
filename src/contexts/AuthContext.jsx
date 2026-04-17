@@ -31,7 +31,6 @@ export function AuthProvider({ children }) {
     setAuthError(null)
     try {
       const provider = new GoogleAuthProvider()
-      provider.setCustomParameters({ hd: 'paravonk.com' })
       await signInWithPopup(auth, provider)
     } catch (err) {
       if (err.code !== 'auth/popup-closed-by-user') {
