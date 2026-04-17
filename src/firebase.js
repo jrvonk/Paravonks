@@ -9,7 +9,9 @@ const config = {
   appId:      import.meta.env.VITE_FIREBASE_APP_ID,
 }
 
-export const firebaseReady = !!config.apiKey
+// Skip Firebase init on the server — all auth/Firestore usage is client-only.
+const isClient = typeof window !== 'undefined'
+export const firebaseReady = isClient && !!config.apiKey
 
 let auth = null
 let db   = null
