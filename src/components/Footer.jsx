@@ -1,3 +1,5 @@
+import EditableText from './cms/EditableText'
+
 export default function Footer() {
   return (
     <footer style={{
@@ -15,7 +17,7 @@ export default function Footer() {
         color: 'var(--terracotta)',
         letterSpacing: '0.18em',
       }}>
-        VONK MEDIA
+        <EditableText field="footer.logo">PARAVONK</EditableText>
       </div>
 
       <div style={{
@@ -25,7 +27,7 @@ export default function Footer() {
         fontFamily: "'Space Mono', monospace",
         letterSpacing: '0.06em',
       }}>
-        © 2025 Vonk Media — Derek &amp; James Vonk. All rights reserved.
+        <EditableText field="footer.copyright">© 2025 Paravonk — Derek &amp; James Vonk. All rights reserved.</EditableText>
       </div>
 
       <div style={{ display: 'flex', gap: '2rem' }}>

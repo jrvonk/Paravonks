@@ -1,14 +1,15 @@
 import { motion } from 'framer-motion'
+import EditableText from './cms/EditableText'
 
 const SPRING = { stiffness: 100, damping: 20 }
 const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { type: 'spring', ...SPRING } } }
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.13 } } }
 
 const steps = [
-  { num: 'Step 01', title: 'Discovery',    desc: "We get deep on your goals, your audience, your constraints, and your gaps. We ask the hard questions upfront so nothing surfaces late." },
-  { num: 'Step 02', title: 'Architecture', desc: 'We map the creative and technical plan. Every deliverable, every dependency, every decision point — documented before we shoot a frame.' },
-  { num: 'Step 03', title: 'Production',   desc: 'We execute. Cameras roll, code ships, and systems fire. We communicate clean and move fast without cutting corners.' },
-  { num: 'Step 04', title: 'Delivery',     desc: "Every deliverable is verified against spec before it leaves our hands. We don't call it done until it's actually done." },
+  { num: 'Step 01', title: 'Discovery',    descField: 'process.step1', descDefault: "We get deep on your goals, your audience, your constraints, and your gaps. We ask the hard questions upfront so nothing surfaces late." },
+  { num: 'Step 02', title: 'Architecture', descField: 'process.step2', descDefault: 'We map the creative and technical plan. Every deliverable, every dependency, every decision point — documented before we shoot a frame.' },
+  { num: 'Step 03', title: 'Production',   descField: 'process.step3', descDefault: 'We execute. Cameras roll, code ships, and systems fire. We communicate clean and move fast without cutting corners.' },
+  { num: 'Step 04', title: 'Delivery',     descField: 'process.step4', descDefault: "Every deliverable is verified against spec before it leaves our hands. We don't call it done until it's actually done." },
 ]
 
 export default function Process() {
@@ -19,10 +20,14 @@ export default function Process() {
         initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={stagger}
       >
         <motion.div variants={fadeUp} className="section-label">How We Work</motion.div>
-        <motion.h2 variants={fadeUp} className="section-title">The Vonk Process</motion.h2>
+        <motion.h2 variants={fadeUp} className="section-title">
+          <EditableText field="process.title">The Paravonk Process</EditableText>
+        </motion.h2>
         <motion.p variants={fadeUp} className="section-body">
-          Straightforward. No unnecessary meetings. No scope creep. We move with intention
-          from first conversation to final delivery.
+          <EditableText field="process.subtitle">
+            Straightforward. No unnecessary meetings. No scope creep. We move with intention
+            from first conversation to final delivery.
+          </EditableText>
         </motion.p>
 
         <motion.div
@@ -30,7 +35,6 @@ export default function Process() {
           style={{ marginTop: '4rem', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', position: 'relative' }}
           className="process-steps"
         >
-          {/* Animated connecting line */}
           <motion.div
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
@@ -65,7 +69,7 @@ export default function Process() {
                 {step.title}
               </div>
               <p style={{ fontSize: '0.83rem', color: 'var(--muted-brown)', lineHeight: 1.72 }}>
-                {step.desc}
+                <EditableText field={step.descField}>{step.descDefault}</EditableText>
               </p>
             </motion.div>
           ))}
