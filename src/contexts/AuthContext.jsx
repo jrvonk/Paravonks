@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { GoogleAuthProvider, signInWithRedirect, getRedirectResult, signOut as firebaseSignOut, onAuthStateChanged } from 'firebase/auth'
+import { signInWithEmailAndPassword, signOut as firebaseSignOut, onAuthStateChanged } from 'firebase/auth'
 import { auth, firebaseReady } from '../firebase'
 
 const ALLOWED = ['james@paravonk.com', 'derek@paravonk.com']
@@ -16,22 +16,6 @@ export function AuthProvider({ children }) {
 
     setLoading(true)
 
-    // Surface redirect errors instead of swallowing them
-    getRedirectResult(auth)
-      .then(result => {
-        if (result?.user && !ALLOWED.includes(result.user.email)) {
-          firebaseSignOut(auth)
-          setAuthError('Access restricted to authorized accounts only.')
-        }
-      })
-      .catch(err => {
-        console.error('getRedirectResult error:', err.code, err.message)
-        if (err.code !== 'auth/no-auth-event') {
-          setAuthError(err.code || 'Sign-in failed.')
-        }
-      })
-
-    // Safety net: if onAuthStateChanged never fires, unblock after 10s
     const timeout = setTimeout(() => {
       console.warn('onAuthStateChanged timeout — unblocking loading')
       setLoading(false)
@@ -53,15 +37,17 @@ export function AuthProvider({ children }) {
     return () => { clearTimeout(timeout); unsub() }
   }, [])
 
-  async function signIn() {
+  async function signIn(email, password) {
     if (!firebaseReady) return
     setAuthError(null)
-    const provider = new GoogleAuthProvider()
     try {
-      await signInWithRedirect(auth, provider)
+      await signInWithEmailAndPassword(auth, email, password)
     } catch (err) {
       console.error('CMS sign-in error:', err.code, err.message)
-      setAuthError(err.code || 'Sign-in failed.')
+      const msg = err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found'
+        ? 'Invalid email or password.'
+        : (err.code || 'Sign-in failed.')
+      setAuthError(msg)
     }
   }
 
