@@ -1,9 +1,12 @@
+import { useState, useEffect } from 'react'
 import EditableText from './cms/EditableText'
 import { useAuth } from '../contexts/AuthContext'
 import { firebaseReady } from '../firebase'
 
 export default function Footer() {
   const { signIn } = useAuth()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
   return (
     <footer style={{
       background: 'var(--bg)',
@@ -45,7 +48,7 @@ export default function Footer() {
             {label}
           </a>
         ))}
-        {firebaseReady && (
+        {mounted && firebaseReady && (
           <button
             onClick={signIn}
             style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.62rem', color: 'var(--faint)', fontFamily: "'Space Mono', monospace", letterSpacing: '0.14em', textTransform: 'uppercase', padding: 0, transition: 'color 0.2s' }}
