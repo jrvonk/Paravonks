@@ -37,7 +37,7 @@ async function createServer() {
         render = mod.render
       }
 
-      const appHtml = render()
+      const appHtml = render(url)
       const html = template.replace('<!--ssr-outlet-->', appHtml)
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {

@@ -7,7 +7,7 @@ const template = readFileSync(join(process.cwd(), 'dist/client/index.html'), 'ut
 
 export default function handler(req, res) {
   try {
-    const html = template.replace('<!--ssr-outlet-->', render())
+    const html = template.replace('<!--ssr-outlet-->', render(req.url))
     res.setHeader('Content-Type', 'text/html; charset=utf-8')
     res.end(html)
   } catch (e) {

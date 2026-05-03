@@ -1,12 +1,6 @@
-import { useState, useEffect } from 'react'
 import EditableText from './cms/EditableText'
-import { useAuth } from '../contexts/AuthContext'
-import { firebaseReady } from '../firebase'
 
 export default function Footer() {
-  const { signIn, authError } = useAuth()
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
   return (
     <footer style={{
       background: 'var(--bg)',
@@ -48,23 +42,6 @@ export default function Footer() {
             {label}
           </a>
         ))}
-        {mounted && firebaseReady && (
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.3rem' }}>
-            {authError && (
-              <div style={{ fontSize: '0.58rem', color: '#ff6b6b', fontFamily: "'Space Mono', monospace", letterSpacing: '0.06em' }}>
-                {authError}
-              </div>
-            )}
-            <button
-              onClick={signIn}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.62rem', color: 'var(--faint)', fontFamily: "'Space Mono', monospace", letterSpacing: '0.14em', textTransform: 'uppercase', padding: 0, transition: 'color 0.2s' }}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--muted)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'var(--faint)'}
-            >
-              CMS
-            </button>
-          </div>
-        )}
       </div>
 
       <style>{`
