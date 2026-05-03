@@ -8,21 +8,37 @@ const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
   const [user, setUser]           = useState(null)
-  const [loading, setLoading]     = useState(firebaseReady)
+  const [loading, setLoading]     = useState(false)
   const [authError, setAuthError] = useState(null)
 
   useEffect(() => {
     if (!firebaseReady) return
 
-    // Handle redirect result after mobile sign-in returns
-    getRedirectResult(auth).then(result => {
-      if (result?.user && !ALLOWED.includes(result.user.email)) {
-        firebaseSignOut(auth)
-        setAuthError('Access restricted to authorized accounts only.')
-      }
-    }).catch(() => {})
+    setLoading(true)
 
-    return onAuthStateChanged(auth, u => {
+    // Surface redirect errors instead of swallowing them
+    getRedirectResult(auth)
+      .then(result => {
+        if (result?.user && !ALLOWED.includes(result.user.email)) {
+          firebaseSignOut(auth)
+          setAuthError('Access restricted to authorized accounts only.')
+        }
+      })
+      .catch(err => {
+        console.error('getRedirectResult error:', err.code, err.message)
+        if (err.code !== 'auth/no-auth-event') {
+          setAuthError(err.code || 'Sign-in failed.')
+        }
+      })
+
+    // Safety net: if onAuthStateChanged never fires, unblock after 10s
+    const timeout = setTimeout(() => {
+      console.warn('onAuthStateChanged timeout — unblocking loading')
+      setLoading(false)
+    }, 10000)
+
+    const unsub = onAuthStateChanged(auth, u => {
+      clearTimeout(timeout)
       if (u && !ALLOWED.includes(u.email)) {
         firebaseSignOut(auth)
         setAuthError('Access restricted to authorized accounts only.')
@@ -33,6 +49,8 @@ export function AuthProvider({ children }) {
       }
       setLoading(false)
     })
+
+    return () => { clearTimeout(timeout); unsub() }
   }, [])
 
   async function signIn() {
