@@ -9,28 +9,31 @@ import Process from './components/Process'
 import Stack from './components/Stack'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import CMSBar from './components/cms/CMSBar'
-import EditModal from './components/cms/EditModal'
+import CMSAdmin from './components/cms/CMSAdmin'
 
-export default function App() {
+export default function App({ url = '/' }) {
+  const isAdmin = url.startsWith('/ghost')
+
   return (
     <AuthProvider>
       <ContentProvider>
-        <WesternBackground />
-
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          <Nav />
-          <Hero />
-          <About />
-          <Services />
-          <Process />
-          <Stack />
-          <Contact />
-          <Footer />
-        </div>
-
-        <CMSBar />
-        <EditModal />
+        {isAdmin ? (
+          <CMSAdmin />
+        ) : (
+          <>
+            <WesternBackground />
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <Nav />
+              <Hero />
+              <About />
+              <Services />
+              <Process />
+              <Stack />
+              <Contact />
+              <Footer />
+            </div>
+          </>
+        )}
       </ContentProvider>
     </AuthProvider>
   )

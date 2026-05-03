@@ -6,6 +6,6 @@ import './index.css'
 ReactDOM.hydrateRoot(
   document.getElementById('root'),
   <React.StrictMode>
-    <App />
+    <App url={window.location.pathname} />
   </React.StrictMode>
 )
