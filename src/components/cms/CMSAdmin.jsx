@@ -159,8 +159,15 @@ export default function CMSAdmin() {
           Sign in with Google
         </button>
         {authError && (
-          <div style={{ marginTop: '1rem', fontSize: '0.7rem', color: '#ff6b6b', fontFamily: "'Space Mono', monospace", letterSpacing: '0.06em' }}>
-            {authError}
+          <div style={{ marginTop: '1rem', maxWidth: 360, textAlign: 'center' }}>
+            <div style={{ fontSize: '0.7rem', color: '#ff6b6b', fontFamily: "'Space Mono', monospace", letterSpacing: '0.06em', marginBottom: '0.3rem' }}>
+              {authError}
+            </div>
+            {authError.includes('unauthorized-domain') && (
+              <div style={{ fontSize: '0.62rem', color: '#9A8070', fontFamily: "'Space Mono', monospace", lineHeight: 1.6 }}>
+                Add this domain to Firebase Console →<br />Authentication → Settings → Authorized domains
+              </div>
+            )}
           </div>
         )}
         <div style={{ marginTop: '1.5rem', fontSize: '0.6rem', color: '#5A4838', fontFamily: "'Space Mono', monospace", letterSpacing: '0.1em' }}>
