@@ -39,13 +39,8 @@ export function AuthProvider({ children }) {
     if (!firebaseReady) return
     setAuthError(null)
     const provider = new GoogleAuthProvider()
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
     try {
-      if (isMobile) {
-        await signInWithRedirect(auth, provider)
-      } else {
-        await signInWithPopup(auth, provider)
-      }
+      await signInWithPopup(auth, provider)
     } catch (err) {
       if (err.code === 'auth/popup-blocked') {
         await signInWithRedirect(auth, provider)
