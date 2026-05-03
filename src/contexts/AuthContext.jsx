@@ -42,10 +42,11 @@ export function AuthProvider({ children }) {
     try {
       await signInWithPopup(auth, provider)
     } catch (err) {
+      console.error('CMS sign-in error:', err.code, err.message)
       if (err.code === 'auth/popup-blocked') {
         await signInWithRedirect(auth, provider)
       } else if (err.code !== 'auth/popup-closed-by-user') {
-        setAuthError('Sign-in failed. Please try again.')
+        setAuthError(err.code || 'Sign-in failed. Please try again.')
       }
     }
   }
