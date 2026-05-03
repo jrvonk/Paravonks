@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut as firebaseSignOut, onAuthStateChanged } from 'firebase/auth'
+import { GoogleAuthProvider, signInWithRedirect, getRedirectResult, signOut as firebaseSignOut, onAuthStateChanged } from 'firebase/auth'
 import { auth, firebaseReady } from '../firebase'
 
 const ALLOWED = ['james@paravonk.com', 'derek@paravonk.com']
@@ -40,14 +40,10 @@ export function AuthProvider({ children }) {
     setAuthError(null)
     const provider = new GoogleAuthProvider()
     try {
-      await signInWithPopup(auth, provider)
+      await signInWithRedirect(auth, provider)
     } catch (err) {
       console.error('CMS sign-in error:', err.code, err.message)
-      if (err.code === 'auth/popup-blocked') {
-        await signInWithRedirect(auth, provider)
-      } else if (err.code !== 'auth/popup-closed-by-user') {
-        setAuthError(err.code || 'Sign-in failed. Please try again.')
-      }
+      setAuthError(err.code || 'Sign-in failed.')
     }
   }
 
