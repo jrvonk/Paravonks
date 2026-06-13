@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useRef } from 'react'
 
 const STAR_COUNT = 190

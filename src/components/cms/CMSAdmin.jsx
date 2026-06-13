@@ -1,3 +1,4 @@
+'use client'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import { useContent } from '../../contexts/ContentContext'

@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* ── Accent palette (desert, works on dark) ── */
+  --adobe:         #C4845A;
+  --adobe-light:   #D49A72;
+  --sage:          #7A9B8A;
+  --sage-light:    #9BBDAD;
+  --terracotta:    #C4704E;
+  --terracotta-dk: #A85A3C;
+  --peach:         #E8B890;
+
+  /* ── OLED surfaces ── */
+  --bg:   #000000;   /* pure OLED black */
+  --bg2:  #0E0C0A;   /* alternate section (barely-warm near-black) */
+  --bg3:  #1A1614;   /* cards, inputs */
+  --bg4:  #262018;   /* card hover */
+
+  /* ── Text ── */
+  --text:        #EAE0D0;   /* primary — warm off-white */
+  --muted:       #9A8070;   /* secondary */
+  --faint:       #5A4838;   /* placeholder / disabled */
+  --warm-white:  #F0E8D8;   /* light — used for text on dark buttons */
+
+  /* ── Component aliases (keep using these in JSX) ── */
+  --dark-brown:  #EAE0D0;   /* was dark body text, now light */
+  --mid-brown:   #C0A888;
+  --muted-brown: #9A8070;
+  --sand:        #C8B49A;
+
+  /* ── Borders ── */
+  --border:        rgba(200, 150, 100, 0.1);
+  --border-accent: rgba(196, 112, 78,  0.32);
+
+  /* ── Semantic ── */
+  --accent:  var(--terracotta);
+  --accent2: var(--adobe);
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Film-grain overlay (screen blend so it's visible on dark) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.045'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.55;
+  mix-blend-mode: screen;
+}
+
+/* ── TYPOGRAPHY ── */
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+/* ── SECTION BASE ── */
+section {
+  padding: 7rem 3rem;
+  position: relative;
+}
+
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 0.8rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: var(--dark-brown);
+}
+
+.section-body {
+  color: var(--muted-brown);
+  line-height: 1.8;
+  font-size: 1rem;
+  max-width: 580px;
+}
+
+.gold-divider {
+  width: 48px;
+  height: 2px;
+  background: var(--terracotta);
+  margin-bottom: 1.8rem;
+}
+
+/* ── BUTTONS ── */
+.btn-primary {
+  background: var(--terracotta);
+  color: var(--warm-white);
+  border: none;
+  padding: 0.9rem 2.2rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background: var(--terracotta-dk);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--dark-brown);
+  border: 1px solid var(--border-accent);
+  padding: 0.9rem 2.2rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-ghost:hover {
+  border-color: var(--sage);
+  color: var(--sage);
+}
+
+/* ── TAG / PILL ── */
+.tag {
+  background: rgba(196, 112, 78, 0.1);
+  border: 1px solid rgba(196, 112, 78, 0.28);
+  color: var(--terracotta);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  padding: 0.28rem 0.65rem;
+  text-transform: uppercase;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  section { padding: 5rem 1.5rem; }
+}

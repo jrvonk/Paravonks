@@ -1,3 +1,4 @@
+'use client'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { signInWithEmailAndPassword, signOut as firebaseSignOut, onAuthStateChanged } from 'firebase/auth'
 import { auth, firebaseReady } from '../firebase'

@@ -1,3 +1,4 @@
+'use client'
 import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { doc, onSnapshot, setDoc } from 'firebase/firestore'
 import { db, firebaseReady } from '../firebase'
