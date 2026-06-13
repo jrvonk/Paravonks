@@ -1,3 +1,4 @@
+'use client'
 import EditableText from './cms/EditableText'
 
 export default function Nav() {

@@ -1,3 +1,4 @@
+'use client'
 import { useContent } from '../../contexts/ContentContext'
 
 export default function EditableText({ field, tag: Tag = 'span', children, style, className, onClick: externalClick, ...rest }) {

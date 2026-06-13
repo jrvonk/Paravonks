@@ -1,3 +1,4 @@
+'use client'
 import { motion } from 'framer-motion'
 
 const SPRING = { stiffness: 100, damping: 20 }

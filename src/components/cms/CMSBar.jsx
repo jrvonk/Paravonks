@@ -1,3 +1,4 @@
+'use client'
 import { useAuth } from '../../contexts/AuthContext'
 import { useContent } from '../../contexts/ContentContext'
 import { firebaseReady } from '../../firebase'
